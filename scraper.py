@@ -7,21 +7,27 @@ from urllib.parse import urlparse
 from urllib.parse import parse_qs
 
 
-def fetch_episode_urns(url):
+def fetch_episode_urns(url, urns, next):
     parsed_url = urlparse(url)
     show_id = parse_qs(parsed_url.query)['id'][0]
-    api_url = "https://www.srf.ch/play/v3/api/srf/production/videos-by-show-id?showId=$ID".replace("$ID", show_id)
-    req = requests.get(api_url)
+    api_url = "https://www.srf.ch/play/v3/api/srf/production/videos-by-show-id"
+
+    req = requests.get(api_url, {"showId": show_id, "next": next})
     episodes_json = json.loads(req.text)
     episode_data = episodes_json["data"]["data"]
 
-    urns = []
     show_title = ""
     for episode in episode_data:
         # urn:srf:video:0e1bae7e-5a42-40af-84cc-3d97cc6c13be
         urns.append(episode["urn"])
         show_title = episode["show"]["title"]
+    if "next" in episodes_json["data"]:
+        print("next found")
+        print(episodes_json["data"]["next"])
+        fetch_episode_urns(url, urns, episodes_json["data"]["next"])
+
     return (urns, show_title)
+
 
 
 def get_ld_json(url: str) -> dict:
@@ -48,7 +54,7 @@ def download(show_name, urn):
         print(e)
 
 def download_full_show(url):
-    (urns, show_title) = fetch_episode_urns(url)
+    (urns, show_title) = fetch_episode_urns(url, [], None)
     for urn in urns:
         download(show_title, urn)
 

@@ -38,3 +38,6 @@ docker run --rm -v $(pwd):/output mbharanya/srf-scraper --url https://www.srf.ch
 ```
 
 Files will be downloaded with the episode date and if available the title (older episodes do not have a title). Example: `Ding Dong-2022-03-11-In der evangelischen WG und beim Handorgel-Sammler.mp4`
+
+## Disclaimer
+I am not affiliated in any way with SRF at all. Please respect rate limits and server costs of our public service. This script should only be used for archival purposes.
