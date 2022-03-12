@@ -1,5 +1,5 @@
 FROM python:3-buster
-COPY requirements.txt scraper.py /app/
+COPY requirements.txt scraper.py logo.ansi.txt /app/
 WORKDIR /app
 
 RUN apt-get update
