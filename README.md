@@ -1,4 +1,4 @@
-# SwissDinner Scraper
+# SRF Scraper
 ```bash
 ................................................................................
 ................................................................................
@@ -37,4 +37,4 @@ docker run --rm -v $(pwd):/output mbharanya/srf-scraper --show-url https://www.s
 docker run --rm -v $(pwd):/output mbharanya/srf-scraper --url https://www.srf.ch/play/tv/sendung/ding-dong?id=b558ca46-e1ce-442c-932d-571e5a6ad323
 ```
 
-Files will be downloaded with the episode date and if available the title (older episodes do not have a title). Example: `2016-05-21-Heute kocht Emira (31).mp4`
+Files will be downloaded with the episode date and if available the title (older episodes do not have a title). Example: `Ding Dong-2022-03-11-In der evangelischen WG und beim Handorgel-Sammler.mp4`
