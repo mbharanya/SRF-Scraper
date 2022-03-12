@@ -47,7 +47,7 @@ def download(show_name, urn):
         data = get_ld_json(url)
         filename = f"{show_name}-{data['uploadDate'].split('T', 1)[0]}-{data['name'].strip()}".replace(":", ".").replace("?", ".") + ".mp4"
         print(f"filename: {filename}")
-        command = ["wget", "--no-clobber", "-O", f"{args.destination}{filename}", data['contentUrl']]
+        command = ["youtube-dl", "-o", f"{args.destination}{filename}", url]
         print(f"command: {command}")
         subprocess.Popen(command).communicate()
     except Exception as e:
