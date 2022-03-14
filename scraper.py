@@ -77,8 +77,28 @@ parser.add_argument(
     '--destination', default="/output/", help='Destination to save to (default docker /output/)'
 )
 args = parser.parse_args() 
-with open('logo.ansi.txt', 'r') as f:
-    print(f.read())
+
+banner = """
+\033[1m\033[38;5;15m\033[48;5;196m................................................................................\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m................................................................................\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m...........,:loddxxxxxddo:...'codddddddddoolc:,........,codddddddddddddoc,......\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m.........;d0NWMMMMMMMMMMNd'..;0WMMMMMMMMMMMWWX0d:......cKWMMMMMMMMMMMMMWKc......\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m........c0WMMMWXKKKKKKKKOc...:0MMMMWXKKKKKNWMMMWKc.....cXMMMMNXXXXXXXXXXk:......\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m.......,kWMMMXd;,,,,,,,,,....:0MMMM0:,,,,,:dXMMMWk,....cKMMMWk:;;;;;;;;;,.......\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m.......,kWMMMXo,.............:0MMMMO;......;0MMMW0;....cXMMMWx'.................\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m.......'lXMMMMN0kxol:,'......:0MMMWO;...',:xXMMMWx,....cXMMMW0ollllllll:'.......\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m........'l0NMMMMMMMWNKOd:'...:0WMMMO;.'lO0NWMMMNk;.....cXMMMMMWWWWWWWWWKc.......\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m..........,cdk0XNWWMMMMWXd,..:0WMMMO;.;0WWMMMNkc'......cXMMMMWNNNNNNNNN0:.......\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m..............',:cokXWMMMNo'.:0WMMMO;.,kNWMMMNk;.......cXMMMWOc::::::::;'.......\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m...................'dNMMMWx'.:0MMMMO;..;cxNMMMWO:......cXMMMWx'.................\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m........,:cc::::::co0WMMMXl..;0WMMMO;....,xNMMMW0l'....cXMMMWx'.................\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m.......,xNWWNNNNNNWWMMMWXo,..;0WMMMO;.....'oXWMMWXo'...cXMMMWx'.................\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m.......;ONWWWWMWWWWWNKOd;'...;ONWWWk,......'oKNWWWXo'..cKWWWXd'.................\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m.......';cllloooollc:,'.......;cccc;........';cclcc;'..':cccc,..................\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m................................................................................\033[0m
+\033[1m\033[38;5;15m\033[48;5;196m................................................................................\033[0m
+"""
+print(banner)
 
 if(args.show_url):
     download_full_show(args.show_url)
