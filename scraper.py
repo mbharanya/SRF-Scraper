@@ -38,25 +38,34 @@ def get_ld_json(url: str) -> dict:
     return json.loads("".join(soup.find("script", {"type": "application/ld+json"}).contents))
 
 
-def download(show_name, urn):
+def download(show_name, urn, year):
     try:
+        year = int(year)
         base_show_url = "https://www.srf.ch/play/tv/abc/video/abc?urn="
         url = base_show_url + urn
-
-        print(f"downloading {show_name} - {url}")
         data = get_ld_json(url)
-        filename = f"{show_name}-{data['uploadDate'].split('T', 1)[0]}-{data['name'].strip()}".replace(":", ".").replace("?", ".") + ".mp4"
-        print(f"filename: {filename}")
-        command = ["youtube-dl", "-o", f"{args.destination}{filename}", url]
-        print(f"command: {command}")
-        subprocess.Popen(command).communicate()
+
+        def download_with_ld_info():
+            print(f"downloading {show_name} - {url}")
+            filename = f"{show_name}-{data['uploadDate'].split('T', 1)[0]}-{data['name'].strip()}".replace(":", ".").replace("?", ".") + ".mp4"
+            print(f"filename: {filename}")
+            command = ["youtube-dl", "-o", f"{args.destination}{filename}", url]
+            print(f"command: {command}")
+            subprocess.Popen(command).communicate()
+
+        # format: 2022-07-13T21:33:12+02:00
+        if (year >= 1900 and data["uploadDate"][0:4] == str(year)):
+            print(f"Download downloading {show_name} - {url} as it was released in {year}")
+            download_with_ld_info()
+        elif (year <= 0):
+            download_with_ld_info()
     except Exception as e:
         print(e)
 
-def download_full_show(url):
+def download_full_show(url, year):
     (urns, show_title) = fetch_episode_urns(url, [], None)
     for urn in urns:
-        download(show_title, urn)
+        download(show_title, urn, year)
 
 def download_single_episode(url):
     parsed_url = urlparse(url)
@@ -75,6 +84,9 @@ parser.add_argument(
 )
 parser.add_argument(
     '--destination', default="/output/", help='Destination to save to (default docker /output/)'
+)
+parser.add_argument(
+    '--year', default=-1, help='Download only episodes from given year'
 )
 args = parser.parse_args() 
 
@@ -101,7 +113,7 @@ banner = """
 print(banner)
 
 if(args.show_url):
-    download_full_show(args.show_url)
+    download_full_show(args.show_url, args.year)
 elif(args.url):
     download_single_episode(args.url)
 else:

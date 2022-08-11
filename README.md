@@ -27,6 +27,7 @@ optional arguments:
   --show-url SHOW_URL   Show url to download e.g. "https://www.srf.ch/play/tv/sendung/ding-dong?id=b558ca46-e1ce-442c-932d-571e5a6ad323"
   --destination DESTINATION
                         Destination to save to (default docker /output/)
+  --year YEAR           Download only episodes from given year
 ```
 
 ## Run
