@@ -67,13 +67,13 @@ def download_full_show(url, year):
     for urn in urns:
         download(show_title, urn, year)
 
-def download_single_episode(url):
+def download_single_episode(url, year):
     parsed_url = urlparse(url)
     urn = parse_qs(parsed_url.query)['urn'][0]
     # https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/urn:srf:video:0e1bae7e-5a42-40af-84cc-3d97cc6c13be.json
     req = requests.get("https://il.srgssr.ch/integrationlayer/2.0/mediaComposition/byUrn/"+ urn)
     info_json = json.loads(req.text)
-    download(info_json["show"]["title"], urn)
+    download(info_json["show"]["title"], urn, year)
 
 parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter)
 parser.add_argument(
@@ -115,7 +115,7 @@ print(banner)
 if(args.show_url):
     download_full_show(args.show_url, args.year)
 elif(args.url):
-    download_single_episode(args.url)
+    download_single_episode(args.url, args.year)
 else:
     print("No url or sitemap specified")
     parser.print_help()
